@@ -1,0 +1,42 @@
+<%= form_for(@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %><br>
+    <%= f.number_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.number_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= label_tag 'brands' %><br />
+      <%= select_tag 'brand_id', options_for_select(@brands.collect{ |b| [b.name, b.id] }) %>
+      <%# check_box_tag "product[brand_ids][#{brand.id}]", nil %><%# brand.name %>
+  </div>  
+  <div class="field">
+   <%= label_tag 'categories' %><br>
+   <%= select_tag 'category_id', options_for_select(@categories.collect{ |b| [b.name, b.id]})%>    
+  </div>
+  <div class="field">
+  <%= f.label :image %>
+  <%= f.file_field :image %>
+</div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
